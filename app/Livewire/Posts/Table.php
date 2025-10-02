@@ -14,6 +14,8 @@ class Table extends Component
 
     protected $updatesQueryString = ['search'];
 
+
+
     public function updatingSearch()
     {
         $this->resetPage();
@@ -26,7 +28,9 @@ class Table extends Component
         $post->is_archived = true;
         $post->save();
 
-        session()->flash('message', 'Post archived successfully!');
+        // session()->flash('message', 'Post archived successfully!');
+        $this->dispatch('notify', 'Post archived successfully!');
+
     }
 
     // Delete a post
@@ -35,7 +39,8 @@ class Table extends Component
         $post = Post::findOrFail($id);
         $post->delete();
 
-        session()->flash('message', 'Post deleted successfully!');
+        // session()->flash('message', 'Post deleted successfully!');
+        $this->dispatch('notify', 'Post deleted successfully!');
     }
 
     public function render()
@@ -47,8 +52,10 @@ class Table extends Component
             })
             ->paginate(10);
 
+        // $posts = Post::search($this->search)->get();
+
         return view('livewire.posts.table', [
-            'posts' => $posts,
+            'posts' => $posts
         ]);
     }
 }

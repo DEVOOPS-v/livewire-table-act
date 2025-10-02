@@ -4,8 +4,9 @@ use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
 
-// use App\Livewire\Users\Table;
-use App\Livewire\Posts\Table;
+use App\Livewire\Users\Table as UsersTable;
+use App\Livewire\Posts\Table as PostsTable;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -13,11 +14,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-// for user 
-// Route::get('/users', Table::class)->name('users');
+// for users
+Route::get('/users', UsersTable::class)->name('users');
 
-// for posts 
-Route::get('/posts', Table::class)->name('posts');
+// for posts
+Route::get('/posts', PostsTable::class)->name('posts');
+
 
 
 
