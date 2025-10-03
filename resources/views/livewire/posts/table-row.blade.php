@@ -1,4 +1,15 @@
-<tr class="{{ $post->is_archived ? 'bg-gray-200 text-gray-400' : 'hover:bg-gray-50 transition-colors' }}">
+<tr 
+    x-data="{ archived: @js($post->is_archived) }" 
+    x-bind:class="archived 
+        ? 'bg-gray-200 text-gray-400 transition-colors duration-300' 
+        : 'hover:bg-gray-50 transition-colors'"
+    x-transition:enter="transition ease-in duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    x-transition:leave="transition ease-out duration-300"
+    x-transition:leave-start="opacity-100"
+    x-transition:leave-end="opacity-0"
+>
     <td class="py-2 px-4">{{ $post->id }}</td>
     <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold">
         {{ Str::limit($post->title, 30) }}
@@ -23,18 +34,18 @@
     <!-- Actions -->
     <td class="px-6 py-4 whitespace-nowrap text-sm flex space-x-2">
         <!-- Archive -->
-        <flux:link
-            href="#"
-            wire:click.prevent="archive({{ $post->id }})"
-            onclick="return confirm('Are you sure?')"
-            :disabled="$post->is_archived"
-            class="px-3 py-1 rounded border cursor-pointer transition
-                {{ $post->is_archived 
-                    ? 'bg-gray-400 text-gray-200 opacity-50 pointer-events-none' 
-                    : 'bg-blue-600 text-white hover:bg-blue-500' }}"
-        >
-            Archive
-        </flux:link>
+      <flux:link
+    wire:click.prevent="archive({{ $post->id }})"
+    x-on:click="archived = true"
+    :disabled="$post->is_archived"
+    class="px-3 py-1 rounded border cursor-pointer transition
+        {{ $post->is_archived 
+            ? 'bg-gray-400 text-gray-200 opacity-50 pointer-events-none' 
+            : 'bg-blue-600 text-white hover:bg-blue-500' }}"
+>
+    Archive
+</flux:link>
+
 
         <!-- Delete -->
         <flux:link  

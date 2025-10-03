@@ -85,24 +85,7 @@
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($employees as $employee)
-                        <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {{ $employee->id }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {{ $employee->name }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $employee->email }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {{ $employee->created_at->format('Y-m-d H:i') }}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                                <button wire:click="archive({{ $employee->id }})" class="text-yellow-600 hover:text-yellow-900">Archive</button>
-                                <button wire:click="delete({{ $employee->id }})" class="text-red-600 hover:text-red-900">Delete</button>
-                            </td>
-                        </tr>
+                        @include('livewire.users.table-row', ['employees' => $employees])
                     @empty
                         <tr>
                             <td colspan="5" class="px-6 py-4 text-center text-gray-500 text-sm">
